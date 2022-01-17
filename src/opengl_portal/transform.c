@@ -63,6 +63,15 @@ void mult_matrix(const float* a,const float* b,float* o){
 
 
 
+void mult_vector(const float* m,const float* v,float* o){
+	o[0]=v[0]*m[0]+v[1]*m[1]+v[2]*m[2]+v[3]*m[3];
+	o[1]=v[0]*m[4]+v[1]*m[5]+v[2]*m[6]+v[3]*m[7];
+	o[2]=v[0]*m[8]+v[1]*m[9]+v[2]*m[10]+v[3]*m[11];
+	o[3]=v[0]*m[12]+v[1]*m[13]+v[2]*m[14]+v[3]*m[15];
+}
+
+
+
 void recalculate_transform(transform_t* t){
 	if (!t->sx&&!t->sy&&!t->sz){
 		float sa=sinf(t->rx);

@@ -26,6 +26,10 @@ void mult_matrix(const float* a,const float* b,float* o);
 
 
 
+void mult_vector(const float* m,const float* v,float* o);
+
+
+
 void recalculate_transform(transform_t* t);
 
 

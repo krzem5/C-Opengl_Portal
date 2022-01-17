@@ -8,8 +8,6 @@ typedef struct __SHADER{
 	GLint _m;
 	GLint _mvp;
 	GLint _tex;
-	GLuint _vs;
-	GLuint _fs;
 	GLuint _p;
 } shader_t;
 

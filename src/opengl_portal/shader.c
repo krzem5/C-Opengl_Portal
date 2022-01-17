@@ -27,15 +27,19 @@ static GLuint _load(const void* dt,GLenum t){
 
 
 void create_shader(shader_t* s,const char* v,const char* f){
-	s->_vs=_load(v,GL_VERTEX_SHADER);
-	s->_fs=_load(f,GL_FRAGMENT_SHADER);
+	GLuint vs=_load(v,GL_VERTEX_SHADER);
+	GLuint fs=_load(f,GL_FRAGMENT_SHADER);
 	s->_p=glCreateProgram();
-	glAttachShader(s->_p,s->_vs);
-	glAttachShader(s->_p,s->_fs);
+	glAttachShader(s->_p,vs);
+	glAttachShader(s->_p,fs);
 	glBindAttribLocation(s->_p,0,"pos");
 	glBindAttribLocation(s->_p,1,"uv");
 	glBindAttribLocation(s->_p,2,"norm");
 	glLinkProgram(s->_p);
+	glDetachShader(s->_p,vs);
+	glDetachShader(s->_p,fs);
+	glDeleteShader(vs);
+	glDeleteShader(fs);
 	GLint ok=0;
 	glGetProgramiv(s->_p,GL_LINK_STATUS,&ok);
 	if (ok){
@@ -45,6 +49,7 @@ void create_shader(shader_t* s,const char* v,const char* f){
 		s->_tex=glGetUniformLocation(s->_p,"tex");
 		return;
 	}
+	glDeleteProgram(s->_p);
 	GLint sz;
 	glGetProgramiv(s->_p,GL_INFO_LOG_LENGTH,&sz);
 	GLchar* tmp=malloc(sz*sizeof(GLchar));
@@ -56,11 +61,7 @@ void create_shader(shader_t* s,const char* v,const char* f){
 
 
 void free_shader(shader_t* s){
-	glDetachShader(s->_p,s->_vs);
-	glDetachShader(s->_p,s->_fs);
 	glDeleteProgram(s->_p);
-	glDeleteShader(s->_vs);
-	glDeleteShader(s->_fs);
 }
 
 

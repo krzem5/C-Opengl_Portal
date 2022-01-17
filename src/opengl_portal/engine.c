@@ -171,9 +171,6 @@ void run(void(*init)(void),void(*update)(void),void (*resize)(unsigned int,unsig
 	glDepthFunc(GL_LESS);
 	glDepthMask(GL_TRUE);
 	init_gl();
-	GLint occ;
-	glGetQueryiv(GL_SAMPLES_PASSED_ARB,GL_QUERY_COUNTER_BITS_ARB,&occ);
-	ASSERT(occ);
 	wglSwapIntervalEXT(1);
 	init();
 	resize(WIDTH,HEIGHT);
